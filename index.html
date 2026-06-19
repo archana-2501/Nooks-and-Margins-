@@ -1,0 +1,1318 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --moss: #4a6741;
+    --sage: #7a9b70;
+    --forest: #2d4a2a;
+    --cream: #f5f0e8;
+    --parchment: #ede5d0;
+    --warm-tan: #c9b99a;
+    --soft-brown: #8b6f5e;
+    --muted-gold: #b8972e;
+    --ink: #2c2416;
+    --text-muted: #6b5c4e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .app {
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  .nav {
+    background: var(--forest);
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+    border-bottom: 2px solid var(--muted-gold);
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-brand .leaf { color: var(--muted-gold); font-size: 16px; }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+  }
+  .nav-link {
+    color: var(--parchment);
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s, background 0.2s;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    background: transparent;
+  }
+  .nav-link:hover, .nav-link.active {
+    opacity: 1;
+    background: rgba(255,255,255,0.1);
+  }
+  .nav-link.active { color: var(--muted-gold); opacity: 1; }
+
+  /* PAGES */
+  .page { display: none; animation: fadeIn 0.4s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HERO */
+  .hero {
+    background: var(--forest);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-leaves {
+    position: absolute; inset: 0; pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-leaf {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.18;
+    animation: drift linear infinite;
+  }
+  @keyframes drift {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.18; }
+    90% { opacity: 0.18; }
+    100% { transform: translateY(260px) rotate(180deg); opacity: 0; }
+  }
+  .hero-tagline-small {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    color: var(--muted-gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  .hero-title em { color: var(--muted-gold); font-style: italic; }
+  .hero-tagline {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--warm-tan);
+    max-width: 380px;
+    margin: 0 auto 1.75rem;
+    line-height: 1.6;
+  }
+  .hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--muted-gold);
+    color: var(--forest);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(245,240,232,0.4);
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+  /* MAIN CONTENT */
+  .main { padding: 1.5rem; max-width: 680px; margin: 0 auto; }
+
+  /* PROMPT CARD */
+  .prompt-card {
+    background: var(--forest);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-left: 4px solid var(--muted-gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .prompt-card::after {
+    content: '🌿';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    opacity: 0.2;
+  }
+  .prompt-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted-gold);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .prompt-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+  .prompt-sub {
+    font-size: 12px;
+    color: var(--warm-tan);
+    font-style: italic;
+    margin-bottom: 12px;
+    font-family: 'Lora', serif;
+  }
+  .prompt-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag {
+    background: rgba(245,240,232,0.1);
+    color: var(--warm-tan);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(245,240,232,0.15);
+  }
+  .tag.forest { background: rgba(74,103,65,0.3); color: #a8c99e; border-color: rgba(74,103,65,0.4); }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+    margin-top: 1.25rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--forest);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 16px;
+    background: var(--muted-gold);
+    border-radius: 2px;
+  }
+  .see-all {
+    font-size: 11px;
+    color: var(--sage);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    border: none;
+    background: transparent;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  /* POST CARDS */
+  .post-card {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--parchment);
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .post-card:hover { box-shadow: 0 2px 12px rgba(44,36,22,0.08); }
+  .post-img {
+    width: 100%;
+    height: 160px;
+    background: linear-gradient(135deg, #d4e8cc 0%, #b8d4aa 50%, #8fb87a 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .post-img-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--forest);
+    opacity: 0.5;
+    font-style: italic;
+  }
+  .post-body { padding: 1rem 1.1rem 0.75rem; }
+  .post-type {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .post-text {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+  .post-quote {
+    border-left: 3px solid var(--warm-tan);
+    padding-left: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--soft-brown);
+    line-height: 1.6;
+    margin: 8px 0;
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 1.1rem;
+    border-top: 1px solid var(--parchment);
+    background: #faf8f4;
+  }
+  .post-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .avatar-moss { background: #d4e8cc; color: var(--forest); }
+  .avatar-gold { background: #f0e4c0; color: #7a5a1a; }
+  .avatar-sage { background: #c8ddc4; color: #3a6035; }
+  .author-name { font-size: 12px; color: var(--text-muted); font-family: 'Lora', serif; font-style: italic; }
+  .post-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 2px;
+    border-radius: 4px;
+    transition: color 0.2s;
+  }
+  .action-btn:hover { color: var(--moss); }
+  .action-btn.liked { color: #c17b7b; }
+  .action-btn i { font-size: 15px; }
+
+  /* BOOKSHELF */
+  .bookshelf-row {
+    display: flex;
+    gap: 8px;
+    background: var(--soft-brown);
+    padding: 8px 12px 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    align-items: flex-end;
+    min-height: 100px;
+  }
+  .bookshelf-row::-webkit-scrollbar { display: none; }
+  .book-spine {
+    min-width: 32px;
+    border-radius: 3px 6px 6px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .book-spine:hover { transform: translateY(-4px); }
+  .book-spine .book-title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 9px;
+    font-family: 'Lora', serif;
+    padding: 8px 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-height: 90px;
+  }
+
+  /* EXPLORE TAGS */
+  .tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+  .explore-tag {
+    background: white;
+    border: 1px solid var(--parchment);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-family: 'Lora', serif;
+    color: var(--soft-brown);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .explore-tag:hover {
+    background: var(--forest);
+    color: var(--cream);
+    border-color: var(--forest);
+  }
+  .explore-tag.featured {
+    background: var(--forest);
+    color: var(--cream);
+    border-color: var(--forest);
+  }
+
+  /* SEASONAL EVENT CARD */
+  .event-card {
+    background: linear-gradient(135deg, var(--forest) 0%, #3a6035 100%);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--cream);
+    border: 1px solid rgba(184,151,46,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .event-card::before {
+    content: '🍂';
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    font-size: 40px;
+    opacity: 0.25;
+  }
+  .event-badge {
+    display: inline-block;
+    background: rgba(184,151,46,0.25);
+    color: var(--muted-gold);
+    border: 1px solid rgba(184,151,46,0.4);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .event-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .event-desc {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--warm-tan);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .event-progress {
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px;
+    height: 4px;
+    margin-bottom: 4px;
+    overflow: hidden;
+  }
+  .event-progress-bar {
+    background: var(--muted-gold);
+    height: 100%;
+    border-radius: 4px;
+    width: 65%;
+  }
+  .event-progress-label {
+    font-size: 11px;
+    color: var(--warm-tan);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* PROFILE */
+  .profile-header {
+    background: var(--forest);
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--cream);
+    border-radius: 0 0 16px 16px;
+    margin: -1.5rem -1.5rem 1.25rem;
+  }
+  .profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--muted-gold);
+    color: var(--forest);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin: 0 auto 12px;
+    border: 3px solid rgba(245,240,232,0.25);
+  }
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .profile-bio {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--warm-tan);
+    max-width: 300px;
+    margin: 0 auto 12px;
+    line-height: 1.5;
+  }
+  .profile-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--warm-tan);
+  }
+  .profile-stat strong {
+    display: block;
+    font-size: 16px;
+    color: var(--cream);
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* WRITE COMPOSE */
+  .compose-card {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--parchment);
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .compose-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .compose-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .compose-tab {
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid var(--parchment);
+    background: var(--cream);
+    color: var(--text-muted);
+    transition: all 0.2s;
+    font-family: 'Lora', serif;
+  }
+  .compose-tab.active {
+    background: var(--forest);
+    color: var(--cream);
+    border-color: var(--forest);
+  }
+  .compose-textarea {
+    width: 100%;
+    border: 1px solid var(--parchment);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: #faf8f4;
+    resize: none;
+    min-height: 80px;
+    line-height: 1.6;
+    outline: none;
+  }
+  .compose-textarea:focus { border-color: var(--sage); }
+  .compose-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .compose-tags-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .compose-tag {
+    font-size: 11px;
+    color: var(--sage);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--parchment);
+  }
+
+  /* RAIN TOGGLE */
+  .rain-toggle {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    background: var(--forest);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid var(--muted-gold);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-size: 18px;
+    transition: transform 0.2s;
+    z-index: 100;
+  }
+  .rain-toggle:hover { transform: scale(1.08); }
+
+  /* RAIN CANVAS */
+  #rain-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+  #rain-canvas.active { opacity: 1; }
+
+  /* READING SECTION */
+  .reading-shelf-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .shelf-section { margin-bottom: 1rem; }
+  .reading-add-btn {
+    width: 32px;
+    height: 72px;
+    background: rgba(122,155,112,0.15);
+    border: 1px dashed var(--sage);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--sage);
+    font-size: 20px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .reading-add-btn:hover { background: rgba(122,155,112,0.25); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--parchment);
+    margin: 1rem 0;
+  }
+
+  /* FEATURED CREATOR CARD */
+  .creator-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  .creator-card {
+    background: white;
+    border: 1px solid var(--parchment);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+  }
+  .creator-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Playfair Display', serif;
+  }
+  .creator-name {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .creator-type {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .creator-follow {
+    margin-top: 10px;
+    padding: 5px 14px;
+    border: 1px solid var(--sage);
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--sage);
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s;
+    font-family: 'Lora', serif;
+  }
+  .creator-follow:hover {
+    background: var(--forest);
+    color: var(--cream);
+    border-color: var(--forest);
+  }
+
+  /* NOTIFICATION DOT */
+  .nav-link.has-dot::after {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background: var(--muted-gold);
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+</style>
+
+<h2 class="sr-only">Moss & Margins — a cozy creative social space for readers, artists, and nature lovers</h2>
+
+<canvas id="rain-canvas"></canvas>
+
+<div class="app">
+  <nav class="nav">
+    <div class="nav-brand">
+      <span class="leaf">✦</span>
+      Moss &amp; Margins
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showPage('home', this)">Home</button>
+      <button class="nav-link has-dot" onclick="showPage('feed', this)">Feed</button>
+      <button class="nav-link" onclick="showPage('explore', this)">Explore</button>
+      <button class="nav-link" onclick="showPage('library', this)">Library</button>
+      <button class="nav-link" onclick="showPage('profile', this)">Profile</button>
+    </div>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-leaves" id="hero-leaves"></div>
+      <div style="position:relative;z-index:1;">
+        <div class="hero-tagline-small">A quiet place to gather</div>
+        <h1 class="hero-title">Moss &amp; <em>Margins</em></h1>
+        <p class="hero-tagline">A quiet corner of the internet for stories, sketches, and slow living.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('feed', document.querySelectorAll('.nav-link')[1])">Wander in ↗</button>
+          <button class="btn-ghost" onclick="showPage('explore', document.querySelectorAll('.nav-link')[2])">Explore the garden</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <!-- Today's Prompt -->
+      <div class="section-header" style="margin-top:1.25rem;">
+        <div class="section-title">Today's Prompt</div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-label">✦ June 19th</div>
+        <div class="prompt-title">Rain on Old Windows</div>
+        <div class="prompt-sub">"The kind of afternoon that blurs the world and sharpens the self."</div>
+        <div class="prompt-tags">
+          <span class="tag forest">Watercolor</span>
+          <span class="tag forest">Poetry</span>
+          <span class="tag forest">Journal Reflection</span>
+          <span class="tag forest">Book Quotes</span>
+        </div>
+      </div>
+
+      <!-- Featured from the community -->
+      <div class="section-header">
+        <div class="section-title">From the Community</div>
+        <button class="see-all" onclick="showPage('feed', document.querySelectorAll('.nav-link')[1])">see all →</button>
+      </div>
+
+      <div class="post-card">
+        <div class="post-img">
+          <svg width="100%" height="160" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#c8ddc4"/>
+                <stop offset="100%" stop-color="#8fb87a"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="160" fill="url(#skyGrad)"/>
+            <ellipse cx="80" cy="120" rx="60" ry="40" fill="#4a6741" opacity="0.6"/>
+            <ellipse cx="140" cy="130" rx="80" ry="40" fill="#2d4a2a" opacity="0.7"/>
+            <ellipse cx="300" cy="125" rx="70" ry="38" fill="#3a6035" opacity="0.65"/>
+            <ellipse cx="370" cy="132" rx="50" ry="32" fill="#2d4a2a" opacity="0.6"/>
+            <rect x="0" y="140" width="400" height="20" fill="#2d4a2a" opacity="0.8"/>
+            <line x1="60" y1="0" x2="58" y2="160" stroke="rgba(150,200,230,0.4)" stroke-width="1"/>
+            <line x1="120" y1="0" x2="118" y2="160" stroke="rgba(150,200,230,0.3)" stroke-width="1"/>
+            <line x1="200" y1="0" x2="198" y2="160" stroke="rgba(150,200,230,0.4)" stroke-width="1"/>
+            <line x1="280" y1="0" x2="278" y2="160" stroke="rgba(150,200,230,0.35)" stroke-width="1"/>
+            <line x1="340" y1="0" x2="338" y2="160" stroke="rgba(150,200,230,0.3)" stroke-width="1"/>
+            <text x="200" y="75" text-anchor="middle" font-family="Lora, serif" font-style="italic" font-size="14" fill="rgba(44,36,22,0.4)">Forgotten Forests — watercolor sketch</text>
+          </svg>
+        </div>
+        <div class="post-body">
+          <div class="post-type">✦ Watercolor</div>
+          <div class="post-text">Painted this rainy afternoon view from my studio window. The birch trees looked like they were dissolving into silver.</div>
+          <div class="prompt-tags" style="margin-top:6px;">
+            <span class="tag" style="background:#f0f4ee;color:#4a6741;border-color:#d4e8cc;">Cottagecore</span>
+            <span class="tag" style="background:#f0f4ee;color:#4a6741;border-color:#d4e8cc;">Rainy Reads</span>
+          </div>
+        </div>
+        <div class="post-meta">
+          <div class="post-author">
+            <div class="avatar avatar-moss">EV</div>
+            <span class="author-name">elara_violet</span>
+          </div>
+          <div class="post-actions">
+            <button class="action-btn" id="like1" onclick="toggleLike('like1', 'count1')"><i class="ti ti-heart"></i><span id="count1">47</span></button>
+            <button class="action-btn"><i class="ti ti-message-circle"></i><span>12</span></button>
+            <button class="action-btn"><i class="ti ti-repeat"></i><span>8</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-body">
+          <div class="post-type">✦ Quote</div>
+          <div class="post-quote">"I took a deep breath and listened to the old brag of my heart: I am, I am, I am."</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:6px;font-style:italic;">— Sylvia Plath, The Bell Jar</div>
+          <div class="post-text" style="margin-top:10px;">This passage has lived in my margins since I first read it at seventeen. Some sentences are just <em>yours</em> forever.</div>
+        </div>
+        <div class="post-meta">
+          <div class="post-author">
+            <div class="avatar avatar-gold">PW</div>
+            <span class="author-name">parchment_wren</span>
+          </div>
+          <div class="post-actions">
+            <button class="action-btn liked" id="like2" onclick="toggleLike('like2', 'count2')"><i class="ti ti-heart-filled" style="color:#c17b7b"></i><span id="count2">203</span></button>
+            <button class="action-btn"><i class="ti ti-message-circle"></i><span>34</span></button>
+            <button class="action-btn"><i class="ti ti-repeat"></i><span>89</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seasonal Event -->
+      <div class="section-header">
+        <div class="section-title">Seasonal Events</div>
+      </div>
+      <div class="event-card">
+        <div class="event-badge">Active Now</div>
+        <div class="event-title">Autumn Reading Week</div>
+        <div class="event-desc">Share what you're reading as the leaves turn. Poems, passages, and reflections welcome.</div>
+        <div class="event-progress"><div class="event-progress-bar"></div></div>
+        <div class="event-progress-label"><span>Day 4 of 7</span><span>318 entries</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEED PAGE -->
+  <div id="page-feed" class="page">
+    <div class="main">
+      <!-- Compose -->
+      <div class="compose-card">
+        <div class="compose-label">Today's prompt: Rain on Old Windows</div>
+        <div class="compose-tabs">
+          <button class="compose-tab active" onclick="switchTab(this,'write')">Write</button>
+          <button class="compose-tab" onclick="switchTab(this,'quote')">Quote</button>
+          <button class="compose-tab" onclick="switchTab(this,'art')">Art</button>
+          <button class="compose-tab" onclick="switchTab(this,'book')">Book</button>
+        </div>
+        <textarea class="compose-textarea" placeholder="Begin here. No pressure, no performance. Just you and the page..."></textarea>
+        <div class="compose-footer">
+          <div class="compose-tags-row">
+            <span class="compose-tag">#poetry</span>
+            <span class="compose-tag">#nature</span>
+            <span class="compose-tag">+ tag</span>
+          </div>
+          <button class="btn-primary" style="padding:7px 16px;font-size:12px;">Share quietly</button>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Community Feed</div>
+        <button class="see-all">following · all</button>
+      </div>
+
+      <!-- Post 1 -->
+      <div class="post-card">
+        <div class="post-img" style="height:120px;background:linear-gradient(135deg,#e8d5b0,#c9a87a);">
+          <div class="post-img-label">journal spread — ink &amp; pressed flowers</div>
+        </div>
+        <div class="post-body">
+          <div class="post-type">✦ Journal Entry</div>
+          <div class="post-text">Spent the morning pressing the last of the season's clover into my journal. There's something sacred about capturing a living thing on paper before the cold comes.</div>
+          <div class="prompt-tags" style="margin-top:6px;">
+            <span class="tag" style="background:#f5f0e8;color:#8b6f5e;border-color:#c9b99a;">Journaling</span>
+            <span class="tag" style="background:#f5f0e8;color:#8b6f5e;border-color:#c9b99a;">Pressed Flowers</span>
+          </div>
+        </div>
+        <div class="post-meta">
+          <div class="post-author">
+            <div class="avatar avatar-sage">MF</div>
+            <span class="author-name">mossy_fernwood</span>
+          </div>
+          <div class="post-actions">
+            <button class="action-btn" id="like3" onclick="toggleLike('like3','count3')"><i class="ti ti-heart"></i><span id="count3">91</span></button>
+            <button class="action-btn"><i class="ti ti-message-circle"></i><span>19</span></button>
+            <button class="action-btn"><i class="ti ti-repeat"></i><span>31</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 2 - Book rec -->
+      <div class="post-card">
+        <div class="post-body">
+          <div class="post-type">✦ Book Recommendation</div>
+          <div style="display:flex;gap:12px;align-items:flex-start;margin:8px 0;">
+            <div style="width:44px;height:64px;background:linear-gradient(180deg,#2d4a2a,#4a6741);border-radius:2px 6px 6px 2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;color:#a8c99e;font-family:Lora,serif;padding:4px;">H. Byatt</span>
+            </div>
+            <div>
+              <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);margin-bottom:4px;">Possession</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">A.S. Byatt · 1990</div>
+              <div class="post-text">If you've ever lost yourself inside someone else's love letters — or inside a library — this is your book. Dense, romantic, and endlessly rewarding.</div>
+            </div>
+          </div>
+          <div class="prompt-tags" style="margin-top:6px;">
+            <span class="tag" style="background:#f0f4ee;color:#4a6741;border-color:#d4e8cc;">Dark Academia</span>
+            <span class="tag" style="background:#f0f4ee;color:#4a6741;border-color:#d4e8cc;">Classics</span>
+          </div>
+        </div>
+        <div class="post-meta">
+          <div class="post-author">
+            <div class="avatar avatar-gold">PW</div>
+            <span class="author-name">parchment_wren</span>
+          </div>
+          <div class="post-actions">
+            <button class="action-btn" id="like4" onclick="toggleLike('like4','count4')"><i class="ti ti-heart"></i><span id="count4">156</span></button>
+            <button class="action-btn"><i class="ti ti-message-circle"></i><span>28</span></button>
+            <button class="action-btn"><i class="ti ti-bookmark"></i><span>Add to list</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-body">
+          <div class="post-type">✦ Poem</div>
+          <div class="post-quote" style="font-size:14px;line-height:1.8;">
+            The rain speaks to old rooftops<br>
+            in a language we've forgotten,<br>
+            but our bones remember—<br>
+            the tapping, the softening,<br>
+            the long grey permission to rest.
+          </div>
+        </div>
+        <div class="post-meta">
+          <div class="post-author">
+            <div class="avatar avatar-moss">EV</div>
+            <span class="author-name">elara_violet</span>
+          </div>
+          <div class="post-actions">
+            <button class="action-btn liked" id="like5" onclick="toggleLike('like5','count5')"><i class="ti ti-heart-filled" style="color:#c17b7b"></i><span id="count5">274</span></button>
+            <button class="action-btn"><i class="ti ti-message-circle"></i><span>44</span></button>
+            <button class="action-btn"><i class="ti ti-repeat"></i><span>127</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE PAGE -->
+  <div id="page-explore" class="page">
+    <div class="main">
+      <div class="section-header" style="margin-top:0.5rem;">
+        <div class="section-title">Explore</div>
+      </div>
+
+      <div style="position:relative;margin-bottom:1rem;">
+        <i class="ti ti-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:16px;" aria-hidden="true"></i>
+        <input type="text" placeholder="Search tags, creators, prompts..." style="width:100%;padding:9px 12px 9px 36px;border:1px solid var(--parchment);border-radius:6px;font-family:'Lora',serif;font-size:13px;background:#faf8f4;color:var(--ink);outline:none;" />
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Browse Tags</div>
+      </div>
+      <div class="tags-grid">
+        <button class="explore-tag featured" onclick="filterTag(this)"># Cottagecore</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Dark Academia</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Poetry</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Fantasy</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Nature Writing</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Sketchbook</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Watercolor</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Rainy Reads</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Classics</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Journaling</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Botanical</button>
+        <button class="explore-tag" onclick="filterTag(this)"># Slow Living</button>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Featured Creators</div>
+      </div>
+      <div class="creator-row">
+        <div class="creator-card">
+          <div class="creator-avatar" style="background:#d4e8cc;color:#2d4a2a;">EV</div>
+          <div class="creator-name">elara_violet</div>
+          <div class="creator-type">Watercolorist · Poet</div>
+          <button class="creator-follow">Follow</button>
+        </div>
+        <div class="creator-card">
+          <div class="creator-avatar" style="background:#f0e4c0;color:#7a5a1a;">PW</div>
+          <div class="creator-name">parchment_wren</div>
+          <div class="creator-type">Book Lover · Essayist</div>
+          <button class="creator-follow">Follow</button>
+        </div>
+        <div class="creator-card">
+          <div class="creator-avatar" style="background:#c8ddc4;color:#3a6035;">MF</div>
+          <div class="creator-name">mossy_fernwood</div>
+          <div class="creator-type">Journaler · Forager</div>
+          <button class="creator-follow">Follow</button>
+        </div>
+        <div class="creator-card">
+          <div class="creator-avatar" style="background:#e8d5b0;color:#7a5a1a;">CB</div>
+          <div class="creator-name">cedar_bloom</div>
+          <div class="creator-type">Illustrator · Naturalist</div>
+          <button class="creator-follow">Follow</button>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Seasonal Collections</div>
+      </div>
+      <div class="event-card" style="margin-bottom:10px;">
+        <div class="event-badge">Active</div>
+        <div class="event-title">Autumn Reading Week</div>
+        <div class="event-desc">Leaves turning, pages turning. Share what you're reading this autumn.</div>
+        <div class="event-progress"><div class="event-progress-bar"></div></div>
+        <div class="event-progress-label"><span>318 entries</span><span>3 days left</span></div>
+      </div>
+      <div class="event-card" style="background:linear-gradient(135deg,#3a3a5a,#4a4a7a);">
+        <div class="event-badge" style="color:#b0b8e8;border-color:rgba(176,184,232,0.4);background:rgba(176,184,232,0.15);">Coming Soon</div>
+        <div class="event-title">Winter Sketch Challenge</div>
+        <div class="event-desc">Cold windows, warm mugs, frozen ponds. Draw your winter world.</div>
+        <div style="font-size:11px;color:rgba(245,240,232,0.5);margin-top:8px;">Begins December 1st</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIBRARY PAGE -->
+  <div id="page-library" class="page">
+    <div class="main">
+      <div class="section-header" style="margin-top:0.5rem;">
+        <div class="section-title">My Library</div>
+        <button class="btn-primary" style="padding:6px 14px;font-size:11px;">+ Add Book</button>
+      </div>
+
+      <div class="shelf-section">
+        <div class="reading-shelf-label">📖 Currently Reading</div>
+        <div class="bookshelf-row">
+          <div class="book-spine" style="background:#4a6741;height:88px;" title="Middlemarch">
+            <span class="book-title" style="color:#d4e8cc;">Middlemarch</span>
+          </div>
+          <div class="book-spine" style="background:#7a5a1a;height:72px;" title="The Name of the Rose">
+            <span class="book-title" style="color:#f0e4c0;">Name of the Rose</span>
+          </div>
+          <div class="book-spine" style="background:#3a3a5a;height:80px;" title="Piranesi">
+            <span class="book-title" style="color:#d0d4f0;">Piranesi</span>
+          </div>
+          <div class="reading-add-btn">+</div>
+        </div>
+      </div>
+
+      <div class="shelf-section">
+        <div class="reading-shelf-label">✓ Finished Reading</div>
+        <div class="bookshelf-row">
+          <div class="book-spine" style="background:#5a3a2a;height:76px;">
+            <span class="book-title" style="color:#f0d4c0;">Jane Eyre</span>
+          </div>
+          <div class="book-spine" style="background:#2d4a2a;height:84px;">
+            <span class="book-title" style="color:#a8c99e;">The Secret Garden</span>
+          </div>
+          <div class="book-spine" style="background:#7a3a3a;height:68px;">
+            <span class="book-title" style="color:#f0c0c0;">Rebecca</span>
+          </div>
+          <div class="book-spine" style="background:#4a4a2a;height:90px;">
+            <span class="book-title" style="color:#e8e8a8;">Possession</span>
+          </div>
+          <div class="book-spine" style="background:#3a5a5a;height:74px;">
+            <span class="book-title" style="color:#a8d8d8;">Circe</span>
+          </div>
+          <div class="reading-add-btn">+</div>
+        </div>
+      </div>
+
+      <div class="shelf-section">
+        <div class="reading-shelf-label">🌿 Want to Read</div>
+        <div class="bookshelf-row">
+          <div class="book-spine" style="background:#5a4a2a;height:80px;">
+            <span class="book-title" style="color:#d8c8a8;">The Rings of Saturn</span>
+          </div>
+          <div class="book-spine" style="background:#2a4a5a;height:72px;">
+            <span class="book-title" style="color:#a8c8d8;">The God of Small Things</span>
+          </div>
+          <div class="book-spine" style="background:#4a2a5a;height:88px;">
+            <span class="book-title" style="color:#d0a8d8;">The Hours</span>
+          </div>
+          <div class="reading-add-btn">+</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-header">
+        <div class="section-title">Reading Stats</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem;">
+        <div style="background:white;border:1px solid var(--parchment);border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:24px;color:var(--forest);">12</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Read in 2024</div>
+        </div>
+        <div style="background:white;border:1px solid var(--parchment);border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:24px;color:var(--forest);">3</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Reading now</div>
+        </div>
+        <div style="background:white;border:1px solid var(--parchment);border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:24px;color:var(--forest);">31</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">On the list</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE PAGE -->
+  <div id="page-profile" class="page">
+    <div class="main">
+      <div class="profile-header">
+        <div class="profile-avatar">W</div>
+        <div class="profile-name">winter_reader</div>
+        <div class="profile-bio">botanist by day, reader by lamplight. drawn to foggy mornings, handmade things, and long novels.</div>
+        <div class="profile-stats">
+          <div class="profile-stat"><strong>87</strong>posts</div>
+          <div class="profile-stat"><strong>12</strong>read</div>
+          <div class="profile-stat"><strong>214</strong>following</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:6px;margin-bottom:1.25rem;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;">
+        <button class="compose-tab active" style="white-space:nowrap;">Gallery</button>
+        <button class="compose-tab" style="white-space:nowrap;">Library</button>
+        <button class="compose-tab" style="white-space:nowrap;">Journal</button>
+        <button class="compose-tab" style="white-space:nowrap;">Favorites</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:1.25rem;">
+        <div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#d4e8cc,#8fb87a);display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:10px;color:#2d4a2a;font-style:italic;text-align:center;padding:4px;">forest sketches</span>
+        </div>
+        <div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#e8d5b0,#c9a87a);display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:10px;color:#5a3a1a;font-style:italic;text-align:center;padding:4px;">journal pages</span>
+        </div>
+        <div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#c8ddc4,#7a9b70);display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:10px;color:#2d4a2a;font-style:italic;text-align:center;padding:4px;">pressed leaves</span>
+        </div>
+        <div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#dcd4e8,#9a8ab8);display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:10px;color:#2a1a4a;font-style:italic;text-align:center;padding:4px;">winter light</span>
+        </div>
+        <div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#e8c8c4,#c87a7a);display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:10px;color:#4a1a1a;font-style:italic;text-align:center;padding:4px;">autumn still life</span>
+        </div>
+        <div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#d4e0e8,#8aaabb);display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:10px;color:#1a3a4a;font-style:italic;text-align:center;padding:4px;">rain window</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Favorite Authors</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.25rem;">
+        <span class="explore-tag" style="background:white;">Mary Oliver</span>
+        <span class="explore-tag" style="background:white;">Virginia Woolf</span>
+        <span class="explore-tag" style="background:white;">Ursula K. Le Guin</span>
+        <span class="explore-tag" style="background:white;">Sylvia Plath</span>
+        <span class="explore-tag" style="background:white;">George Eliot</span>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Favorite Books</div>
+      </div>
+      <div class="bookshelf-row" style="margin-bottom:1.25rem;">
+        <div class="book-spine" style="background:#2d4a2a;height:80px;"><span class="book-title" style="color:#a8c99e;">The Bell Jar</span></div>
+        <div class="book-spine" style="background:#4a3a2a;height:72px;"><span class="book-title" style="color:#d4b88a;">A Room With a View</span></div>
+        <div class="book-spine" style="background:#3a3a5a;height:88px;"><span class="book-title" style="color:#c8c8f0;">The Dispossessed</span></div>
+        <div class="book-spine" style="background:#5a2a2a;height:76px;"><span class="book-title" style="color:#f0c0c0;">Middlemarch</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="rain-toggle" onclick="toggleRain()" title="Toggle rain effect" aria-label="Toggle rain ambience">🌧</button>
+
+<script>
+  function showPage(name, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    if (btn) btn.classList.add('active');
+  }
+
+  function switchTab(el, type) {
+    el.closest('.compose-tabs').querySelectorAll('.compose-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const ta = el.closest('.compose-card').querySelector('.compose-textarea');
+    const ph = {
+      write: 'Begin here. No pressure, no performance. Just you and the page...',
+      quote: 'Paste a passage that moved you, then share why it mattered...',
+      art: 'Describe your piece, or upload an image of your work...',
+      book: 'Share a book recommendation with a heartfelt note...'
+    };
+    ta.placeholder = ph[type] || ph.write;
+  }
+
+  function filterTag(el) {
+    el.classList.toggle('featured');
+  }
+
+  function toggleLike(btnId, countId) {
+    const btn = document.getElementById(btnId);
+    const count = document.getElementById(countId);
+    const icon = btn.querySelector('i');
+    const liked = btn.classList.toggle('liked');
+    const n = parseInt(count.textContent);
+    count.textContent = liked ? n + 1 : n - 1;
+    if (liked) {
+      icon.className = 'ti ti-heart-filled';
+      icon.style.color = '#c17b7b';
+    } else {
+      icon.className = 'ti ti-heart';
+      icon.style.color = '';
+    }
+  }
+
+  // Drifting leaves in hero
+  const leavesContainer = document.getElementById('hero-leaves');
+  const leafChars = ['🍃','🍂','🌿','🍁'];
+  for (let i = 0; i < 12; i++) {
+    const leaf = document.createElement('span');
+    leaf.className = 'hero-leaf';
+    leaf.textContent = leafChars[i % leafChars.length];
+    leaf.style.left = (Math.random() * 100) + '%';
+    leaf.style.top = (Math.random() * 100) + '%';
+    leaf.style.animationDuration = (6 + Math.random() * 10) + 's';
+    leaf.style.animationDelay = (-Math.random() * 12) + 's';
+    leaf.style.fontSize = (14 + Math.random() * 12) + 'px';
+    leavesContainer.appendChild(leaf);
+  }
+
+  // Rain effect
+  let rainActive = false;
+  let rainAnim;
+  const canvas = document.getElementById('rain-canvas');
+  const ctx = canvas.getContext('2d');
+  const drops = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  for (let i = 0; i < 120; i++) {
+    drops.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      len: 8 + Math.random() * 14,
+      speed: 4 + Math.random() * 6,
+      opacity: 0.1 + Math.random() * 0.25
+    });
+  }
+
+  function drawRain() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drops.forEach(d => {
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(160,190,220,${d.opacity})`;
+      ctx.lineWidth = 0.8;
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x - 1, d.y + d.len);
+      ctx.stroke();
+      d.y += d.speed;
+      if (d.y > canvas.height) {
+        d.y = -d.len;
+        d.x = Math.random() * canvas.width;
+      }
+    });
+    rainAnim = requestAnimationFrame(drawRain);
+  }
+
+  function toggleRain() {
+    rainActive = !rainActive;
+    canvas.classList.toggle('active', rainActive);
+    if (rainActive) drawRain();
+    else { cancelAnimationFrame(rainAnim); ctx.clearRect(0, 0, canvas.width, canvas.height); }
+  }
+</script>

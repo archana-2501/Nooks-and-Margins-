@@ -787,7 +787,28 @@
           <span class="tag forest">Book Quotes</span>
         </div>
       </div>
+<button onclick="mmOpenModal()"
+  style="background:#2d4a2a;color:#f5f0e8;border:none;padding:10px 20px;border-radius:6px;font-family:'Lora',serif;font-size:14px;font-style:italic;cursor:pointer;letter-spacing:0.03em;margin-top:12px;transition:opacity 0.2s;">
+  ✦ Share your response
+</button>
 
+<!-- Live feed container -->
+<div id="mm-feed-container" style="margin-top:1.25rem;">
+  <!-- Loading shimmer -->
+  <div id="mm-loading" style="text-align:center;padding:2rem;font-family:'Lora',serif;font-style:italic;font-size:14px;color:#8b6f5e;">
+    Gathering responses from the forest...
+  </div>
+</div>
+
+<!-- Filter bar (optional, place above #mm-feed-container) -->
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0.75rem;" id="mm-filters">
+  <button class="mm-filter-btn mm-filter-active" onclick="mmFilter(this,'all')">All</button>
+  <button class="mm-filter-btn" onclick="mmFilter(this,'reflection')">Reflections</button>
+  <button class="mm-filter-btn" onclick="mmFilter(this,'quote')">Quotes</button>
+  <button class="mm-filter-btn" onclick="mmFilter(this,'book')">Books</button>
+  <button class="mm-filter-btn" onclick="mmFilter(this,'artwork')">Artwork</button>
+</div>
+      
       <!-- Featured from the community -->
       <div class="section-header">
         <div class="section-title">From the Community</div>
